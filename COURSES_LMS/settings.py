@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Media files settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CKEditor upload path (relative to MEDIA_ROOT)
+CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,8 +33,12 @@ SECRET_KEY = 'django-insecure-)+*ch#!b#%umk54gt69_57y3hyed8k5uv)%mqir@=*8z_5hdrc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['*']
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/courses/'  
+LOGIN_URL = '/login/'  
 
 # Application definition
 
@@ -38,6 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses',  
+    'user',
+    'role',
+    'training_program',
+    'ckeditor',
+    'ckeditor_uploader',
+    
 ]
 
 MIDDLEWARE = [
