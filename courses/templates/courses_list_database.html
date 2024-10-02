@@ -8,30 +8,33 @@
         <!-- Sidebar -->
         <nav class="col-md-3 d-none d-md-block sidebar" style="background-color: #000; height: 100vh; overflow-y: auto;">
             <div class="sidebar-sticky">
-                <h5 class="text-center mb-0" style="color: white;">Choose a course</h5>
+                <h5 class="text-center mb-0" style="color: white;">Courses</h5>
                 
 
                 <!-- Course Selection Dropdown -->
-                <div class="col-md-12">
-                    <form id="courseForm" method="POST" action="{% url 'courses:courses_list_database' %}">
-                        {% csrf_token %}
+            <div class="col-md-12">
                 
-                        <div class="form-group">
-                            
-                            <select name="selected_course" id="courseComboBox" class="form-control">
-                                
-                                {% for course in courses %}
-                                    <option value="{{ course }}" {% if selected_course == course %}selected{% endif %}>
-                                        {{ course }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                        </div>
                 
-                        
-                    </form>
-                </div>                
+                <form id="courseForm" method="POST" action="{% url 'courses:courses_list_database' %}">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <select name="selected_course" id="courseComboBox" class="form-control" onchange="this.form.submit()">
+                            <option value="">-- Select a course-- </option>
+                            {% for course in courses %}
+                                <option value="{{ course }}" {% if selected_course == course %}selected{% endif %}>
+                                    {{ course }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+                <!-- Back to Home Button -->
+                <a href="{% url 'courses:home' %}" class="btn btn-secondary mb-4">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+           
                 
                 <!-- List Sub-Courses and Modules from DB -->
                 <ul class="nav flex-column">
