@@ -36,10 +36,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/courses/'  
 LOGIN_URL = '/login/'  
-
+LOGIN_REDIRECT_URL = '/courses/home/'
 # Application definition
 
 INSTALLED_APPS = [
