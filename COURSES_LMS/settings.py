@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'courses',  
     'user',
     'role',
-    'training_program',
     'ckeditor',
     'ckeditor_uploader',
     

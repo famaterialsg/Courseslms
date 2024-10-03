@@ -3,28 +3,17 @@ from role.models import Role
 from user.models import Profile
 from django.contrib.auth.models import User
 import pandas as pd
-import bcrypt
 from django.http import HttpResponse
 from django.contrib import messages
 from user.forms import UserForm, RoleForm, ExcelImportForm
 import openpyxl
-# from module_group.models import ModuleGroup
-from .forms import AssignTrainingProgramForm
-from django.core.exceptions import ObjectDoesNotExist
-# Assign training programs view
-def assign_training_programs(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    
-    if request.method == 'POST':
-        form = AssignTrainingProgramForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f"Training programs successfully assigned to {user.username}.")
-            return redirect('user:user_list')
-    else:
-        form = AssignTrainingProgramForm(instance=user)
 
-    return render(request, 'assign_training_programs.html', {'user': user, 'form': form})
+from django.core.exceptions import ObjectDoesNotExist
+
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='login')  # Redirect to login page if not logged in
+
 
 
 # List all users

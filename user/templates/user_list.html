@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+    <!-- Display protected content -->
 
 <div class="container mt-4">
   <h2>Users</h2>
@@ -49,9 +51,7 @@
           <a href="{% url 'user:user_edit' user.pk %}" class="btn btn-warning btn-sm" title="Edit User" data-toggle="tooltip">
             <i class="fas fa-edit"></i>
           </a>
-          <a href="{% url 'user:assign_training_programs' user.pk %}" class="btn btn-primary btn-sm" title="Assign Training Programs">
-            <i class="fas fa-plus"></i>
-          </a>
+          
         </td>
       </tr>
       {% endfor %}
@@ -101,4 +101,12 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
+
+
+{% else %}
+<div class="alert alert-warning text-center mt-4" role="alert">
+  <strong>Please</strong> <a href="{% url 'user:login' %}" class="alert-link">login</a> to see this content.
+</div>
+
+{% endif %}
 {% endblock %}

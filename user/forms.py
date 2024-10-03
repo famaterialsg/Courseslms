@@ -2,7 +2,6 @@ from django import forms
 from role.models import Role
 from user.models import Profile
 from django.contrib.auth.models import User
-from training_program.models import TrainingProgram
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -43,14 +42,4 @@ class RoleForm(forms.ModelForm):
         fields = ['role_name']
         
 
-class AssignTrainingProgramForm(forms.ModelForm):
-    training_programs = forms.ModelMultipleChoiceField(
-        queryset=TrainingProgram.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-    )
-
-    class Meta:
-        model = User
-        fields = ['training_programs']
 

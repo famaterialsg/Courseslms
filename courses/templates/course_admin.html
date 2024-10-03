@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if user.is_authenticated %}
+
+    <!-- Display protected content -->
 <div class="container mt-4">
     <h1 class="mb-4 text-center">Course Administration</h1>
 
@@ -132,4 +135,11 @@
         document.getElementById('importFormContainer').style.display = 'none';
     }
 </script>
+
+
+  {% else %}
+<div class="alert alert-warning text-center mt-4" role="alert">
+  <strong>Please</strong> <a href="{% url 'user:login' %}" class="alert-link">login</a> to see this content.
+</div>
+{% endif %}
 {% endblock %}

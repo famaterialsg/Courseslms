@@ -9,8 +9,10 @@ from django.contrib import messages
 from django.http import JsonResponse
 from user.models import Profile  # Adjust import based on your structure
 from django.contrib.auth.models import User 
-# from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='login')  # Redirect to login page if not logged in
 def home(request):
     # Check if the user is authenticated
     is_student = False
