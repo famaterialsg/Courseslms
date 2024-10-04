@@ -4,12 +4,12 @@ import pandas as pd
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from .models import Course
-from .forms import ExcelImportCourseForm
 from django.contrib import messages
 from django.http import JsonResponse
 from user.models import Profile  # Adjust import based on your structure
 from django.contrib.auth.models import User 
-
+from .forms import ExcelImportCourseForm,CourseForm
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')  # Redirect to login page if not logged in
@@ -337,6 +337,42 @@ def courses_list_database(request):
     return render(request, 'courses_list_database.html', context)
 
 
+
+def edit_course(request, course_name):
+    # Get all courses that match the given course_name
+    courses = Course.objects.filter(course=course_name)
+
+    # Create a context dictionary to pass to the template
+    context = {
+        'course_name': course_name,
+        'courses': courses,
+    }
+
+    # Render the 'edit_course.html' template with the context data
+    return render(request, 'edit_course.html', context)
+
+
+def edit_module(request, sub_module_name):
+    # Get the course object that matches the given sub_module_name, or return a 404 if not found
+    course = get_object_or_404(Course, sub_module=sub_module_name)
+
+    if request.method == 'POST':
+        # If the request is a POST, create a form instance with the submitted data and the current course instance
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            # If the form is valid, save the updated course information
+            form.save()
+
+            # Get the previous URL from the request's headers, or default to '/' (home page) if not found
+            previous_url = request.META.get('HTTP_REFERER', '/')
+            # Redirect the user to the previous page
+            return HttpResponseRedirect(previous_url)
+    else:
+        # If the request is not a POST, create a form instance pre-filled with the current course data
+        form = CourseForm(instance=course)
+
+    # Render the 'edit_module.html' template, passing the form and course name
+    return render(request, 'edit_module.html', {'form': form, 'course_name': course.course})
 
 
 

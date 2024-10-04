@@ -133,7 +133,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
+#Ckeditor
+CKEDITOR_BASEPATH ='/static/ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH='uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+'default': {
+'toolbar': 'full',
+},
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
